@@ -81,7 +81,7 @@ function _update()
     end
     if(getbit(bits,4)>0) then
       local offnum = ((cury-1) * charcount) + curx + charmin
-      printh("ox" .. sub(tostr(offnum,3),5,6), "@clip")
+      printh("0x" .. sub(tostr(offnum,3),5,6), "@clip")
       copytimer = 1
       music(0)
     end
