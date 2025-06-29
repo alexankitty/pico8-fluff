@@ -67,6 +67,7 @@ function _update()
   else hold = 0
   end
   local allowinput = false
+  local offnum = ((cury-1) * charcount) + curx + charmin
   if(inputtimer == 0 or hold >= 15) then allowinput = true end
   if(bits > 0 and allowinput) then
     blinktimer = 0
@@ -79,8 +80,7 @@ function _update()
       cls()
       stop()
     end
-    if(getbit(bits,4)>0) then
-      local offnum = ((cury-1) * charcount) + curx + charmin
+    if(getbit(bits,4)>0) then     
       printh("0x" .. sub(tostr(offnum,3),5,6), "@clip")
       copytimer = 1
       music(0)
@@ -89,8 +89,9 @@ function _update()
   end
   curx = curx < 0 and 0 or curx
   cury = cury < 1 and 1 or cury
-  curx = curx > charcount and charcount or curx
+  curx = curx >= charcount and charcount-1 or curx
   cury = cury > rows and rows or cury
+  curx = (offnum > 255) and (charmax-charmin)%charcount or curx
   blinktimer = (blinktimer + 1) % 30
   if(inputtimer >= 1) then inputtimer = (inputtimer + 1) % inputrepeat end
   if(copytimer >= 1) then copytimer = (copytimer + 1) % copyduration end
@@ -105,5 +106,4 @@ __sfx__
 00100000190001b000190000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 __music__
 00 01424344
-
 
