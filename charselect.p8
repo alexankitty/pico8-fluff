@@ -62,7 +62,6 @@ end
 function _update()
   blink = blinktimer%30<15 and true or false
   bits = btn()
-  local buffer = inputbuffer
   if(bits > 0) then hold = hold + 1
   else hold = 0
   end
